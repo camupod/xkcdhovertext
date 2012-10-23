@@ -1,0 +1,25 @@
+{
+   "background_page": "background.html",
+   "content_scripts": [ {
+      "js": ["jquery.min.js", "xkcdhovertext.js"],
+      "matches": [
+      	"http://xkcd.com/*",
+      	"http://xkcd.org/*",
+      	"http://xkcd.net/*",
+      	"http://www.xkcd.com/*",
+      	"http://www.xkcd.org/*",
+      	"http://www.xkcd.net/*",
+      	"http://www.google.com/reader/*",
+      	"https://www.google.com/reader/*"
+      ],
+      "run_at": "document_end"
+   } ],
+   "icons": {
+		"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png"
+	},
+   "name": "xkcd hovertext",
+   "options_page": "options.html",
+   "version": "1.4"
+}
