@@ -1,0 +1,10 @@
+.xkcdhovertext {
+	display: none;
+	position: absolute;
+	padding: 5px;
+	font-variant: small-caps;
+	font-family: Lucida,Helvetica,sans-serif;
+	z-index: 1000000;
+	-webkit-transform: translateZ(0);
+	transform: translateZ(0);
+}

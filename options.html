@@ -8,41 +8,41 @@
 			font-family: Arial, Verdana, sans-serif;
 			text-align: center;
 		}
-		
+
 		h1, h2, h3 {
 			font-size: 1em;
 			margin: 0;
 			text-align: center;
 		}
-		
+
 		h3 {
 			font-weight: normal;
 			color: #666;
 		}
-		
+
 		ul, ol {
 			margin: 0 0 1em;
 			padding: 0;
 			list-style-type: none;
 		}
-		
+
 		button {
 			font-size: 1.5em;
 		}
-		
+
 		.title {
 			font-size: 2.5em;
 			font-weight: bold;
 			font-family: Helvetica,Arial, Verdana, sans-serif;
 		}
-		
+
 		.line {
 			border-bottom: 1px solid #ddd;
 			height: 1px;
 			width: 100%;
 			margin: 1em 0em;
 		}
-		
+
 		#options {
 			display: inline-block;
 			margin: 4em auto 0;
@@ -52,16 +52,16 @@
 			text-align: left;
 			-webkit-box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.40);
 		}
-		
+
 		table {
 			margin: 0.5em auto;
 			border: 0px;
 			padding: 0px;
 			width: 100%;
 		}
-	
-		
-		
+
+
+
 		input[type="text"] {
 			font-family: courier;
 			color: black;
@@ -74,78 +74,13 @@
 	</style>
 	<script src="jquery.min.js"></script>
 	<script src="options.js"></script>
-	<script type="text/javascript">
-	
-		function restoreOptions () {
-			$.each(Options.getAll(), function (optn, value) {
-				var elt = $('#'+optn);
-				if (elt.length) {
-					if (elt.get(0).type === 'checkbox') {
-						elt.get(0).checked = value;
-						elt.trigger('change');
-					} else {
-						elt.val(value);
-					}
-				}
-				elt.removeClass('invalid');
-			});
-		}
-		
-		function saveOptions () {
-			$.each(Options.getAll(), function (optn) {
-				var elt = $('#'+optn);// = Options.get(optn);
-				if (elt.length) {
-					if (validate(elt)) {
-						if (elt.get(0).type === 'checkbox') {
-							Options.set(optn, elt.get(0).checked);
-						} else {
-							Options.set(optn, elt.val());
-						}
-					} else {
-						elt.val(Options.get(optn));
-						validate(elt);
-					}
-				}
-			});
-			$('#saved-status').show().delay(600).fadeOut('slow');
-		}
-		
-		function validate(elt) {
-			if (Options.isValid(elt.get(0).id, elt.val())) {
-				elt.removeClass('invalid');
-				return true;
-			} else {
-				elt.addClass('invalid');
-				return false;
-			}
-		}
-	
-		function loadDefaults () {
-			Options.reset();
-			restoreOptions();
-		}
-	
-		function init() {
-			restoreOptions();
-			$('input[type="text"]').keyup(function (evt) {
-				validate($(evt.target));
-			});
-			$(document).keydown(function (evt) {
-				if (evt.metaKey && evt.keyCode == 83) {
-					saveOptions();
-					evt.preventDefault();
-				}
-			});
-		}
-	
-		$(init);
-	</script>
+	<script src="options-main.js"></script>
 </head>
 <body>
 	<div id="options">
 		<h1 class="title">xkcd Hovertext Options</h1>
 		<div class="line"></div>
-		
+
 		<h1>Appearance</h1>
 		<table>
 			<tbody>
@@ -163,7 +98,7 @@
 			</tr>
 			<tr>
 				<td>Round Corners:</td>
-				<td><input type="checkbox" onchange="$('#corner_opts').toggle(this.checked);"  id="round_corners" /></td>
+				<td><input type="checkbox" id="round_corners" /></td>
 			</tr>
 			<tr id="corner_opts" style="display:none;">
 				<td>Corner radius (px):</td>
@@ -171,7 +106,7 @@
 			</tr>
 			<tr>
 				<td>Border:</td>
-				<td><input type="checkbox" onchange="$('#border_opts').toggle(this.checked);" id="border" /></td>
+				<td><input type="checkbox" id="border" /></td>
 			</tr>
 			<tr id="border_opts" style="display:none;">
 				<td>Border color:</td>
@@ -191,9 +126,9 @@
 			</tr>
 			</tbody>
 		</table>
-			
+
 		<div class="line"></div>
-	
+
 		<h1>Behavior</h1>
 		<table>
 			<tbody>
@@ -211,16 +146,16 @@
 			</tr>
 			</tbody>
 		</table>
-		
+
 		<div class="line"></div>
 		<table>
 			<tbody>
 			<tr>
 				<td>
-					<button onclick="saveOptions()">Save</button>
+					<button class="save-btn">Save</button>
 					<span id="saved-status" style="display:none">Saved</span>
 				</td>
-				<td align="right"><button onclick="loadDefaults()">Defaults</button></td>
+				<td align="right"><button class="defaults-btn">Defaults</button></td>
 			</tr>
 			</tbody>
 		</table>

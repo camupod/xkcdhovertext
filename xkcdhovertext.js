@@ -6,46 +6,41 @@ function loadxkcdhovertext (options) {
 }
 
 function reloadxkcdhovertext(options) {
-	var images = $("img");
+	var images = $('img');
 	images.each(function () {
 		var image = $(this);
-		if (image.data('hovertextificated')) {
+		if (image.data('hovertextified')) {
 			return;
 		}
-		image.data('hovertextificated', true);
+		image.data('hovertextified', true);
 		var src = image.attr('src');
-		if (!/imgs\.xkcd\.com/ig.test(src)) return;
-		
+
+        // only match images hosted on *.xkcd.com
+		if (!/.*xkcd\.com|^(?!http)/ig.test(src)) return;
+
 		var title = image.attr('title');
-		if (!title || $.trim(title) == '') return;
-		
-		var hovertext = $('<div>').appendTo('body');
+		if (!title || $.trim(title) === '') return;
+
+		var hovertext = $('<div class="xkcdhovertext">').appendTo('body');
 		hovertext.css({
-			display:				'none',
-			position:				'absolute',
-			padding:				'5px',
-			'font-variant': 		'small-caps',
 			width:					options.width + 'px',
 			color:					toRGBA(options.font_color, 1),
 			'background-color':		toRGBA(options.bg_color, options.bg_opacity),
-			'font-size':			options.font_size + 'px',
-			'z-index':				1000000
+			'font-size':			options.font_size + 'px'
 		});
-		
+
 		if (options.border) {
 			hovertext.css('border', '1px solid ' + toRGBA(options.border_color, 1));
 		}
-		
+
 		if (options.shadow) {
-			hovertext.css('-webkit-box-shadow', '4px 4px 4px rgba(0, 0, 0, 0.60)');
-			hovertext.css('-moz-box-shadow', '4px 4px 4px rgba(0, 0, 0, 0.60)');
+			hovertext.css('box-shadow', '4px 4px 4px rgba(0, 0, 0, 0.60)');
 		}
-		
+
 		if (options.round_corners) {
-			hovertext.css('-webkit-border-radius', options.corner_radius + 'px');
-			hovertext.css('-moz-border-radius', options.corner_radius + 'px');
+			hovertext.css('border-radius', options.corner_radius + 'px');
 		}
-		
+
 		hovertext.append(title);
 		image.attr('title', '');
 		var off = $('body').offset();
@@ -54,8 +49,8 @@ function reloadxkcdhovertext(options) {
 				return;
 			}
 			var top = e.pageY + 20;// + off.top;
-			var left = e.offsetX + 10 + off.left;
-			
+			var left = e.offsetX + 10;// + off.left;
+
 			if (left + hovertext.outerWidth() > $(window).width()) {
 				left -= hovertext.outerWidth() - 10;
 			}
@@ -67,7 +62,7 @@ function reloadxkcdhovertext(options) {
 				left: left
 			});
 		};
-		
+
 		var tid;
 		var over = function (e) {
 			if (e.relatedTarget !== hovertext.get(0)) {
@@ -82,7 +77,7 @@ function reloadxkcdhovertext(options) {
 				$(document).bind('mousemove.hovertext', move);
 			}
 		};
-		
+
 		var out = function (e) {
 			if (e.relatedTarget !== hovertext.get(0)) {
 				clearTimeout(tid);
@@ -96,7 +91,7 @@ function reloadxkcdhovertext(options) {
 				}
 			}
 		};
-		
+
 		image.hover(over, out);
 	});
 }
@@ -105,11 +100,11 @@ function toRGBA(hex, opacity) {
 	hex = hex.toString();
 	opacity = opacity.toString();
 	var result = 'rgba(';
-	
+
 	if (hex.charAt(0) === '#') {
 		hex = hex.substring(1, hex.length);
 	}
-	
+
 	if (hex.length === 3) {
 		result += parseInt(hex.charAt(0), 16) + ', ';
 		result += parseInt(hex.charAt(1), 16) + ', ';
@@ -119,13 +114,13 @@ function toRGBA(hex, opacity) {
 		result += parseInt(hex.substring(2, 4), 16) + ', ';
 		result += parseInt(hex.substring(4, 6), 16) + ', ';
 	}
-	
+
 	if (opacity.indexOf('%') > -1) {
 		opacity = opacity.substring(0, opacity.length - 1);
 		opacity = parseFloat(opacity) / 100;
 	}
-	
+
 	return result + opacity + ')';
 }
 
-chrome.extension.sendRequest('options', loadxkcdhovertext);
+chrome.extension.sendMessage('options', loadxkcdhovertext);
