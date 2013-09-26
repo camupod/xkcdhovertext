@@ -1,3 +1,5 @@
+LOCALSTORAGE_KEY = 'xkcdhovertext_options';
+
 (Options = {
 	// defaults
 	defaults: {
@@ -8,9 +10,11 @@
 		corner_radius:		10,
 		border:				true,
 		border_color:		'#000000',
+		font_family:		'(default)',
 		font_color:			'#FFFFFF',
 		font_size:			16,
 		width:				300,
+		small_caps:			true,
 
 		delay:				2,
 		move_with_mouse:	false,
@@ -80,12 +84,12 @@
 
 	_save: function ()
 	{
-		localStorage['xkcdhovertext_options'] = JSON.stringify(this.options);
+		localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.options));
 	},
 
 	_load: function ()
 	{
-		this.options = JSON.parse(localStorage['xkcdhovertext_options']);
+		this.options = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
 	},
 
 	_isValidOption: function (option)
@@ -106,15 +110,15 @@
 
 	_firstTime: function ()
 	{
-		return localStorage['xkcdhovertext_options'] === undefined || localStorage['xkcdhovertext_options'] === "undefined";
+		return !localStorage.getItem(LOCALSTORAGE_KEY) || localStorage.getItem(LOCALSTORAGE_KEY) === "undefined";
 	}
 }).init();
 
 function merge(into, from) {
-    for (var p in from) {
-        if (from.hasOwnProperty(p)) {
-            into[p] = from[p];
-        }
-    }
-    return into;
+	for (var p in from) {
+		if (from.hasOwnProperty(p)) {
+			into[p] = from[p];
+		}
+	}
+	return into;
 }

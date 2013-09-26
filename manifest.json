@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "XKCD Hovertext",
   "description": "This extension replaces native browser title text with a customizable popup for xkcd images.",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "background": {
     "scripts": ["options.js", "background.js"],
     "persistent": false

@@ -21,12 +21,18 @@ function reloadxkcdhovertext(options) {
 		var title = image.attr('title');
 		if (!title || $.trim(title) === '') return;
 
+        if (options.font_family === '(default)') {
+            options.font_family = null;
+        }
+
 		var hovertext = $('<div class="xkcdhovertext">').appendTo('body');
 		hovertext.css({
 			width:					options.width + 'px',
 			color:					toRGBA(options.font_color, 1),
 			'background-color':		toRGBA(options.bg_color, options.bg_opacity),
-			'font-size':			options.font_size + 'px'
+			'font-size':			options.font_size + 'px',
+            'font-family':          options.font_family || '',
+            'font-variant':         options.small_caps ? 'small-caps': 'normal'
 		});
 
 		if (options.border) {
@@ -106,9 +112,9 @@ function toRGBA(hex, opacity) {
 	}
 
 	if (hex.length === 3) {
-		result += parseInt(hex.charAt(0), 16) + ', ';
-		result += parseInt(hex.charAt(1), 16) + ', ';
-		result += parseInt(hex.charAt(2), 16) + ', ';
+		result += parseInt(hex.charAt(0)+hex.charAt(0), 16) + ', ';
+		result += parseInt(hex.charAt(1)+hex.charAt(1), 16) + ', ';
+		result += parseInt(hex.charAt(2)+hex.charAt(2), 16) + ', ';
 	} else if (hex.length === 6) {
 		result += parseInt(hex.substring(0, 2), 16) + ', ';
 		result += parseInt(hex.substring(2, 4), 16) + ', ';

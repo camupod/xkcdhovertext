@@ -85,11 +85,11 @@
 		<table>
 			<tbody>
 			<tr>
-				<td width="200px">Background color<br />(e.g. #678 or 636F82):</td>
+				<td width="230px">Background color (eg., #678 or 636F82):</td>
 				<td><input type="text" id="bg_color" size="10" /></td>
 			</tr>
 			<tr>
-				<td>Background opacity<br />(e.g. 75% or 0.75):</td>
+				<td>Background opacity (eg., 75% or 0.75):</td>
 				<td><input type="text" id="bg_opacity" size="5" /></td>
 			</tr>
 			<tr>
@@ -100,7 +100,7 @@
 				<td>Round Corners:</td>
 				<td><input type="checkbox" id="round_corners" /></td>
 			</tr>
-			<tr id="corner_opts" style="display:none;">
+			<tr id="corner_opts">
 				<td>Corner radius (px):</td>
 				<td><input type="text" id="corner_radius" size="4" /></td>
 			</tr>
@@ -108,14 +108,22 @@
 				<td>Border:</td>
 				<td><input type="checkbox" id="border" /></td>
 			</tr>
-			<tr id="border_opts" style="display:none;">
+			<tr id="border_opts">
 				<td>Border color:</td>
 				<td><input type="text" id="border_color" size="10" /></td>
 			</tr>
-			<tr>
-				<td>Font color:</td>
-				<td><input type="text" id="font_color" size="10" /></td>
-			</tr>
+            <tr>
+                <td>Font (eg., Comic Sans MS):</td>
+                <td><input type="text" id="font_family" size="20" /></td>
+            </tr>
+            <tr>
+                <td style="font-variant: small-caps">Small Caps:</td>
+                <td><input type="checkbox" id="small_caps" /></td>
+            </tr>
+            <tr>
+                <td>Font color:</td>
+                <td><input type="text" id="font_color" size="10" /></td>
+            </tr>
 			<tr>
 				<td>Font size (px):</td>
 				<td><input type="text" id="font_size" size="4" /></td>
@@ -133,7 +141,7 @@
 		<table>
 			<tbody>
 			<tr>
-				<td width="200px">Delay (s):</td>
+				<td width="230px">Delay (s):</td>
 				<td><input type="text" id="delay" size="4" /></td>
 			</tr>
 			<tr>
@@ -153,7 +161,10 @@
 			<tr>
 				<td>
 					<button class="save-btn">Save</button>
-					<span id="saved-status" style="display:none">Saved</span>
+					<span id="saved-status" style="display:none">
+                        Saved
+                        <span style="font-size: 10px; font-style: italic; color: #888">refresh xkcd.com to see changes</span>
+                    </span>
 				</td>
 				<td align="right"><button class="defaults-btn">Defaults</button></td>
 			</tr>
