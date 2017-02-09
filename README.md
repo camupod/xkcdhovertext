@@ -10,7 +10,7 @@ The appearance and behavior of the box is highly customizable (check out the opt
 
 (The MIT License)
 
-Copyright 2012 Cameron Lakenen
+Copyright 2017 Cameron Lakenen
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
